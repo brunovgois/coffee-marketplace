@@ -1,10 +1,16 @@
+import { NavLink } from "react-router-dom";
+
 import Logo from "../assets/Logo.svg";
 
 import { MapPin, ShoppingCart } from "@phosphor-icons/react";
 export function Header() {
   return (
     <nav className="flex items-center justify-between py-8">
-      <img src={Logo} />
+      <NavLink to="/">
+        {" "}
+        <img src={Logo} />
+      </NavLink>
+
       <div className="flex items-center gap-3">
         <div className="bg-purple-100 flex py-3 px-2 rounded-md gap-1">
           <MapPin size={24} className="fill-purple-800 " />
@@ -12,7 +18,9 @@ export function Header() {
         </div>
 
         <div className="bg-yellow-50 py-2 px-2 rounded-md">
-          <ShoppingCart size={24} className="fill-yellow-800"/>
+          <NavLink to="/cart">
+            <ShoppingCart size={24} className="fill-yellow-800" />
+          </NavLink>
         </div>
       </div>
     </nav>
