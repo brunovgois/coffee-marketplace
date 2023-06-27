@@ -1,5 +1,5 @@
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
-import CoffeArt from "../assets/CoffeArt.png"
+import CoffeArt from "../assets/CoffeArt.svg"
 
 export function Home() {
   return (
