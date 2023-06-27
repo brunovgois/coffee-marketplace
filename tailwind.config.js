@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'homeGradient': "url('./src/assets/Background.svg')"
+      }
+    },
   },
   plugins: [],
 }

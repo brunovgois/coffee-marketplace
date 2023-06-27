@@ -1,8 +1,9 @@
 import Logo from "../assets/Logo.svg";
+
 import { MapPin, ShoppingCart } from "@phosphor-icons/react";
 export function Header() {
   return (
-    <nav className="flex items-center justify-between">
+    <nav className="flex items-center justify-between py-8">
       <img src={Logo} />
       <div className="flex items-center gap-3">
         <div className="bg-purple-100 flex py-3 px-2 rounded-md gap-1">
