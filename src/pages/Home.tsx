@@ -1,5 +1,6 @@
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import CoffeArt from "../assets/CoffeArt.svg";
+import { CoffeeCard } from "../components/CoffeeCard";
 import { useGetCoffees } from "../hooks/useGetCoffees";
 
 export function Home() {
@@ -48,20 +49,14 @@ export function Home() {
       </div>
 
       <section>
-        <h2 className="pt-4 text-xl leading-snug text-amber-950">
+        <h2 className="pt-4 text-xl leading-snug text-amber-950 mb-10">
           Nossos cafés
         </h2>
-        {coffees.map((coffee) => {
-          return (
-            <div key={coffee.id}>
-              <h1>{coffee.name}</h1>
-              <img
-                src={`/src/assets/coffees/${coffee.photo}`}
-                alt={`Photo image for ${coffee.name}`}
-              />
-            </div>
-          );
-        })}
+        <div className="grid grid-cols-4 gap-8">
+          {coffees.map((coffee) => {
+            return <CoffeeCard coffee={coffee} />;
+          })}
+        </div>
       </section>
     </main>
   );
