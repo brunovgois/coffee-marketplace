@@ -54,7 +54,7 @@ export function Home() {
         </h2>
         <div className="grid grid-cols-4 gap-8">
           {coffees.map((coffee) => {
-            return <CoffeeCard coffee={coffee} />;
+            return <CoffeeCard coffee={coffee} key={coffee.id} />;
           })}
         </div>
       </section>

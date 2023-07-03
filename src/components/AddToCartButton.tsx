@@ -26,7 +26,7 @@ export function AddToCartButton({ children }: { children?: ReactNode }) {
       ) : (
         <button
           onClick={handleAddToCart}
-          className="bg-purple-700 rounded-md p-2"
+          className="bg-purple-700 rounded-md p-2 items-center flex"
         >
           <ShoppingCartSimple className="fill-white w-5 h-5" />
         </button>
