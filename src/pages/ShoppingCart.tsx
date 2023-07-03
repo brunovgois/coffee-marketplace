@@ -3,10 +3,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export function ShoppingCart() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
-  function handleSendAddress(data) {
+  function handleSendAddress(data: any) {
     console.log(data);
+    reset();
   }
 
   return (
