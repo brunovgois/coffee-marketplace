@@ -1,10 +1,10 @@
 export type coffeeType = {
   id: number,
-    tags: Array<string>,
-    name: string,
-    description: string,
-    photo: string,
-    price: number,
+  tags: Array<string>,
+  name: string,
+  description: string,
+  photo: string,
+  price: number,
 }
 
 export const coffees: Array<coffeeType> = [
