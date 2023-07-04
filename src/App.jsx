@@ -1,10 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./components/Router";
+import { CoffeeCartProvider } from "./contexts/CartContext.tsx";
 
 function App() {
   return (
     <BrowserRouter>
-      <Router />
+      <CoffeeCartProvider>
+        <Router />
+      </CoffeeCartProvider>
     </BrowserRouter>
   );
 }

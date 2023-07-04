@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
-
 import Logo from "../assets/Logo.svg";
-
 import { MapPin, ShoppingCart } from "@phosphor-icons/react";
+import { useContext } from "react";
+import { CoffeeCartContext } from "../contexts/CartContext";
+
 export function Header() {
+  const { test } = useContext(CoffeeCartContext);
   return (
     <nav className="flex items-center justify-between py-8">
       <NavLink to="/">
@@ -21,6 +23,7 @@ export function Header() {
           <NavLink to="/cart">
             <ShoppingCart size={24} className="fill-yellow-800" />
           </NavLink>
+          test
         </div>
       </div>
     </nav>
