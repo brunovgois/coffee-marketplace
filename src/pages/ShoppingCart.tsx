@@ -1,5 +1,4 @@
 import { MapPinLine, Trash, CurrencyDollar } from "@phosphor-icons/react";
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddToCartButton } from "../components/AddToCartButton";
 
@@ -45,7 +44,7 @@ export function ShoppingCart() {
       <div className="">
         <div className="flex flex-col gap-3">
           <h2>Complete seu pedido</h2>
-          <div className="bg-gray-100 rounded-md p-10 max-w-xl">
+          <div className="bg-[#F3F2F2] rounded-md p-10 max-w-xl">
             <div className="flex gap-3">
               <MapPinLine className="fill-yellow-600 w-6 h-6" />
               <div>
@@ -53,22 +52,19 @@ export function ShoppingCart() {
                 <p>Informe o endereço onde deseja receber seu pedido</p>
               </div>
             </div>
-            <form
-              onSubmit={handleSubmit(handleSendAddress)}
-              className="flex-grow-0"
-            >
+            <form className="flex-grow-0">
               <div className="flex flex-col gap-4">
                 <input
                   type="text"
                   placeholder="CEP"
                   {...register("cep")}
-                  className="w-1/3"
+                  className="w-1/3 rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                 />
                 <input
                   type="text"
                   placeholder="Rua"
                   {...register("rua")}
-                  className=""
+                  className="rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                 />
 
                 <div className="flex gap-3">
@@ -76,12 +72,13 @@ export function ShoppingCart() {
                     type="text"
                     placeholder="Número"
                     {...register("numero")}
+                    className="rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                   <input
                     type="text"
                     placeholder="Complemento"
                     {...register("complemento")}
-                    className="w-full"
+                    className="w-full rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                 </div>
                 <div className="flex gap-3">
@@ -89,21 +86,25 @@ export function ShoppingCart() {
                     type="text"
                     placeholder="Bairro"
                     {...register("bairro")}
-                    className="w-1/3"
+                    className="w-1/3 rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                   <input
                     type="text"
                     placeholder="Cidade"
                     {...register("cidade")}
-                    className="w-full"
+                    className="w-full rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
-                  <input type="text" placeholder="UF" {...register("uf")} className="w-1/6"/>
+                  <input
+                    type="text"
+                    placeholder="UF"
+                    {...register("uf")}
+                    className="w-1/6 rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
+                  />
                 </div>
               </div>
-              <button type="submit">temp</button>
             </form>
           </div>
-          <div className="bg-gray-100 rounded-md p-10 max-w-xl">
+          <div className="bg-[#F3F2F2] rounded-md p-10 max-w-xl">
             <div className="flex gap-3 mb-3">
               <CurrencyDollar className="text-purple-400 w-6 h-6" />
               <div>
@@ -132,7 +133,7 @@ export function ShoppingCart() {
 
       <div>
         <h2>Cafés selecionados</h2>
-        <div className="bg-gray-100 rounded-md p-10 gap-3 flex flex-col">
+        <div className="bg-[#F3F2F2] rounded-md p-10 gap-3 flex flex-col">
           {cartMock.map((coffee) => {
             return (
               <div className="flex gap-5" key={coffee.id}>
@@ -166,7 +167,10 @@ export function ShoppingCart() {
             <p>Total</p>
             <p>R$ 25</p>
           </div>
-          <button className="rounded-md bg-yellow-400 text-white py-3 px-2 w-full">
+          <button
+            className="rounded-md bg-yellow-400 text-white py-3 px-2 w-full"
+            onClick={handleSubmit(handleSendAddress)}
+          >
             CONFIRMAR PEDIDO
           </button>
         </div>
