@@ -1,22 +1,33 @@
 import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 export function AddToCartButton({ children }: { children?: ReactNode }) {
+  const [amount, setAmount] = useState(1);
+
   function handleAddToCart() {
     console.log("click");
   }
 
-  function handleAddAmount() {}
+  function handleChangeAmountbyOne(action: "add" | "subtract") {
+    if (action === "add") {
+      setAmount((state) => state + 1);
+    }
+    else {
+      if(amount > 1){
+        setAmount((state) => state - 1);
+      }
+    }
+  }
 
   return (
     <div className="flex gap-2 max-h-6 p-0.5">
       <div className="flex items-center gap-2 bg-gray-200 p-2 rounded-md">
-        <button onClick={handleAddAmount}>
+        <button onClick={() => handleChangeAmountbyOne("subtract")}>
           <Minus className="text-purple-500" />
         </button>
 
-        <span>1</span>
-        <button onClick={handleAddAmount}>
+        <span>{amount}</span>
+        <button onClick={() => handleChangeAmountbyOne("add")}>
           <Plus className="text-purple-500" />
         </button>
       </div>
