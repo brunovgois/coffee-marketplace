@@ -1,19 +1,49 @@
-import { createContext, ReactNode, useState } from "react";
-import { coffeeType } from "../mock/coffe";
+import { createContext, ReactNode, useReducer, } from "react";
+import { coffeeType } from "../mock/coffe.js";
 
+import cartReducer, { initialState } from "../reducer/cartReducer";
 
-type CoffeeCartContextType = {
-  test: string
+interface CartItem extends coffeeType {
+  quantity: number;
 }
 
-export const CoffeeCartContext = createContext({} as CoffeeCartContextType);
+type CoffeeCartContextType = {
+  cartItems: CartItem[];
+  handleAddToCart: (coffee: CartItem) => void;
+  cartQuantity: number;
+  changeCartItemQuantity: (
+    cartItemId: number,
+    type: "increase" | "decrease"
+  ) => void;
+  removeCartItem: (cartItemId: number) => void;
+  cartItemsTotalPrice: number;
+  cleanCart: () => void;
+};
+
+export const CoffeeCartContext = createContext(initialState);
 
 export function CoffeeCartProvider({ children }: { children: ReactNode }) {
-  const [test, setTest] = useState("test");
-  //TODO use reducer
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
+  console.log("state");
+  console.log(state);
+
+  function handleAddToCart(coffee: any, quantity: any) {
+    dispatch({
+      type: "addItem",
+      payload: { 
+        
+      },
+    });
+  }
+
+  const value = {
+    total: state.total,
+    items: state.items,
+    handleAddToCart,
+  };
   return (
-    <CoffeeCartContext.Provider value={{ test }}>
+    <CoffeeCartContext.Provider value={value}>
       {children}
     </CoffeeCartContext.Provider>
   );
