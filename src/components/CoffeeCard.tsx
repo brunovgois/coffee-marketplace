@@ -41,7 +41,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
           </span>
         </div>
 
-        <AddToCartButton />
+        <AddToCartButton coffee={coffee} />
       </div>
     </div>
   );

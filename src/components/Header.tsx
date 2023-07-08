@@ -6,7 +6,7 @@ import { CoffeeCartContext } from "../contexts/CartContext";
 import axios from "axios";
 
 export function Header() {
-  const { total } = useContext(CoffeeCartContext);
+  const { cartItems } = useContext(CoffeeCartContext);
 
   const [neighborhood, setNeighborhood] = useState("Bairro");
   const [uf, setUf] = useState("UF");
@@ -55,7 +55,7 @@ export function Header() {
           <NavLink to="/cart">
             <ShoppingCart size={24} className="fill-yellow-800" />
           </NavLink>
-          {total}
+          {cartItems.length}
         </div>
       </div>
     </nav>

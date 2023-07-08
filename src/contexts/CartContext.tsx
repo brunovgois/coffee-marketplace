@@ -1,7 +1,8 @@
-import { createContext, ReactNode, useReducer, } from "react";
+import { createContext, ReactNode, useReducer } from "react";
 import { coffeeType } from "../mock/coffe.js";
+import { addNewItemAction } from "../reducer/carts/actions.js";
 
-import cartReducer, { initialState } from "../reducer/cartReducer";
+import cartReducer from "../reducer/carts/reducer";
 
 interface CartItem extends coffeeType {
   quantity: number;
@@ -9,39 +10,23 @@ interface CartItem extends coffeeType {
 
 type CoffeeCartContextType = {
   cartItems: CartItem[];
-  handleAddToCart: (coffee: CartItem) => void;
-  cartQuantity: number;
-  changeCartItemQuantity: (
-    cartItemId: number,
-    type: "increase" | "decrease"
-  ) => void;
-  removeCartItem: (cartItemId: number) => void;
-  cartItemsTotalPrice: number;
-  cleanCart: () => void;
+  handleAddToCart: (cofee: CartItem) => void;
 };
 
-export const CoffeeCartContext = createContext(initialState);
+export const CoffeeCartContext = createContext({} as CoffeeCartContextType);
 
 export function CoffeeCartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [state, dispatch] = useReducer(cartReducer, []);
 
-  console.log("state");
-  console.log(state);
-
-  function handleAddToCart(coffee: any, quantity: any) {
-    dispatch({
-      type: "addItem",
-      payload: { 
-        
-      },
-    });
+  function handleAddToCart(newCartItem: CartItem) {
+    dispatch(addNewItemAction(newCartItem));
   }
 
   const value = {
-    total: state.total,
-    items: state.items,
+    cartItems: state,
     handleAddToCart,
   };
+
   return (
     <CoffeeCartContext.Provider value={value}>
       {children}

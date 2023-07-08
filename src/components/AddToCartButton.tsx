@@ -1,19 +1,22 @@
 import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
+import { CoffeeCartContext } from "../contexts/CartContext";
+import { coffeeType } from "../mock/coffe";
 
-export function AddToCartButton({ children }: { children?: ReactNode }) {
+type AddToCartButtonProps = {
+  children?: ReactNode;
+  coffee: coffeeType;
+};
+export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
   const [amount, setAmount] = useState(1);
 
-  function handleAddToCart() {
-    console.log("click");
-  }
+  const { handleAddToCart } = useContext(CoffeeCartContext);
 
   function handleChangeAmountbyOne(action: "add" | "subtract") {
     if (action === "add") {
       setAmount((state) => state + 1);
-    }
-    else {
-      if(amount > 1){
+    } else {
+      if (amount > 1) {
         setAmount((state) => state - 1);
       }
     }
@@ -36,7 +39,7 @@ export function AddToCartButton({ children }: { children?: ReactNode }) {
         children
       ) : (
         <button
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart({ ...coffee, quantity: amount })}
           className="bg-purple-700 rounded-md p-2 items-center flex"
         >
           <ShoppingCartSimple className="fill-white w-5 h-5" />
