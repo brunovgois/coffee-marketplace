@@ -23,6 +23,16 @@ export default function cartReducer(state: Array<CartItem>, action: any) {
         draft.splice(cartItemIndx, 1)
       })
     }
+    case ActionTypes.CHANGE_ITEM_AMOUNT: {
+      const { cartItemIndex, amount } = payload;
+
+      return produce(state, (draft) => {
+        const cartItem = draft.find((item) => item.id === cartItemIndex);
+        if (cartItem) {
+          cartItem.quantity = amount;
+        }
+      })
+    }
     default: {
       throw Error("Unknown action:" + action.type);
     }

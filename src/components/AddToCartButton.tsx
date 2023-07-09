@@ -1,5 +1,5 @@
 import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { CoffeeCartContext } from "../contexts/CartContext";
 import { coffeeType } from "../mock/coffe";
 import { toast } from "react-toastify";
@@ -11,7 +11,13 @@ type AddToCartButtonProps = {
 export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
   const [amount, setAmount] = useState(1);
 
-  const { cartItems, handleAddToCart } = useContext(CoffeeCartContext);
+  useEffect(() => {
+    if (children) {
+      handleChangeItemAmountFromCart(coffee.id, amount);
+    }
+  }, [amount]);
+  const { cartItems, handleAddToCart, handleChangeItemAmountFromCart } =
+    useContext(CoffeeCartContext);
 
   function handleChangeAmountbyOne(action: "add" | "subtract") {
     if (action === "add") {
@@ -24,7 +30,7 @@ export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
   }
 
   function handleAddCoffeToCart() {
-    if(cartItems.length < 9){
+    if (cartItems.length < 9) {
       handleAddToCart({ ...coffee, quantity: amount });
       toast(
         `${amount} café${amount !== 1 ? "s" : ""} adicionado${
@@ -32,9 +38,10 @@ export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
         } ao carrinho`
       );
     } else {
-      toast("Quantidade máxima atingida. Finalize a compra ou esvazie alguns items do carrinho antes de adicionar mais. ")
+      toast(
+        "Quantidade máxima atingida. Finalize a compra ou esvazie alguns items do carrinho antes de adicionar mais. "
+      );
     }
-
   }
   return (
     <div className="flex gap-2 max-h-6 p-0.5">
@@ -59,7 +66,6 @@ export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
           <ShoppingCartSimple className="fill-white w-5 h-5" />
         </button>
       )}
-
     </div>
   );
 }
