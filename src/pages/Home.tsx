@@ -20,25 +20,25 @@ export function Home() {
 
           <div className="grid grid-cols-2 grid-rows-2 pt-10 gap-5">
             <div className="flex gap-3">
-              <div className="p-2 bg-orange-200 rounded-full">
+              <div className="p-2 bg-orange-200 rounded-full max-h-9 max-w-9">
                 <ShoppingCart />
               </div>
               <p>Compra simples e segura</p>
             </div>
             <div className="flex gap-3">
-              <div className="p-2 bg-orange-200 rounded-full">
+              <div className="p-2 bg-orange-200 rounded-full max-h-9 max-w-9">
                 <Package />
               </div>
               <p>Embalagem mantém o café intacto</p>
             </div>
             <div className="flex gap-3">
-              <div className="p-2 bg-orange-200 rounded-full">
+              <div className="p-2 bg-orange-200 rounded-full max-h-9 max-w-9">
                 <Timer />
               </div>
               <p>Embalagem mantém o café intacto</p>
             </div>
             <div className="flex gap-3">
-              <div className="p-2 bg-orange-200 rounded-full">
+              <div className="p-2 bg-orange-200 rounded-full max-h-9 max-w-9">
                 <Coffee />
               </div>
               <p>O café chega fresquinho até você</p>
