@@ -11,7 +11,7 @@ type AddToCartButtonProps = {
 export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
   const [amount, setAmount] = useState(1);
 
-  const { handleAddToCart } = useContext(CoffeeCartContext);
+  const { cartItems, handleAddToCart } = useContext(CoffeeCartContext);
 
   function handleChangeAmountbyOne(action: "add" | "subtract") {
     if (action === "add") {
@@ -24,12 +24,17 @@ export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
   }
 
   function handleAddCoffeToCart() {
-    handleAddToCart({ ...coffee, quantity: amount });
-    toast(
-      `${amount} café${amount !== 1 ? "s" : ""} adicionado${
-        amount !== 1 ? "s" : ""
-      } ao carrinho`
-    );
+    if(cartItems.length < 9){
+      handleAddToCart({ ...coffee, quantity: amount });
+      toast(
+        `${amount} café${amount !== 1 ? "s" : ""} adicionado${
+          amount !== 1 ? "s" : ""
+        } ao carrinho`
+      );
+    } else {
+      toast("Quantidade máxima atingida. Finalize a compra ou esvazie alguns items do carrinho antes de adicionar mais. ")
+    }
+
   }
   return (
     <div className="flex gap-2 max-h-6 p-0.5">
