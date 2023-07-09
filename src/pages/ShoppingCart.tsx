@@ -1,27 +1,9 @@
 import { MapPinLine, Trash, CurrencyDollar } from "@phosphor-icons/react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddToCartButton } from "../components/AddToCartButton";
+import { CoffeeCartContext } from "../contexts/CartContext";
 
-const cartMock = [
-  {
-    id: 1,
-    tags: ["teste"],
-    name: "Expresso",
-    description: "test",
-    photo: "/src/assets/coffees/expresso.png",
-    price: 10,
-    amount: 2,
-  },
-  {
-    id: 2,
-    tags: ["teste"],
-    name: "Expresso",
-    description: "test",
-    photo: "/src/assets/coffees/expresso.png",
-    price: 10,
-    amount: 2,
-  },
-];
 type Inputs = {
   cep: string;
   rua: string;
@@ -33,6 +15,11 @@ type Inputs = {
 };
 export function ShoppingCart() {
   const { register, handleSubmit, reset } = useForm<Inputs>();
+  const [paymentMethod, setPaymentMethod] = useState<
+    "credito" | "debito" | "dinheiro" | ""
+  >("");
+
+  const { cartItems } = useContext(CoffeeCartContext);
 
   const handleSendAddress: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -117,13 +104,34 @@ export function ShoppingCart() {
             </div>
 
             <div className="flex gap-3">
-              <button className="bg-gray-200 gap-3 flex p-4 items-center rounded-md">
+              <button
+                className={`bg-gray-200 gap-3 flex p-4 items-center rounded-md border border-gray-300 ${
+                  paymentMethod === "credito"
+                    ? "border-purple-600 bg-purple-100"
+                    : ""
+                }`}
+                onClick={()=>setPaymentMethod("credito")}
+              >
                 Cartão de Crédito
               </button>
-              <button className="bg-gray-200 gap-3 flex p-4 items-center rounded-md">
+              <button
+                className={`bg-gray-200 gap-3 flex p-4 items-center rounded-md border border-gray-300 ${
+                  paymentMethod === "debito"
+                    ? "border-purple-600 bg-purple-100"
+                    : ""
+                }`}
+                onClick={()=>setPaymentMethod("debito")}
+              >
                 Cartão de Débito
               </button>
-              <button className="bg-gray-200 gap-3 flex p-4 items-center rounded-md">
+              <button
+                className={`bg-gray-200 gap-3 flex p-4 items-center rounded-md border border-gray-300 ${
+                  paymentMethod === "dinheiro"
+                    ? "border-purple-600 bg-purple-100"
+                    : ""
+                }`}
+                onClick={()=>setPaymentMethod("dinheiro")}
+              >
                 Dinheiro
               </button>
             </div>
@@ -131,50 +139,55 @@ export function ShoppingCart() {
         </div>
       </div>
 
-      <div>
-        <h2>Cafés selecionados</h2>
-        <div className="bg-[#F3F2F2] rounded-md p-10 gap-3 flex flex-col">
-          {cartMock.map((coffee) => {
-            return (
-              <div className="flex gap-5" key={coffee.id}>
-                <img src={coffee.photo} className="w-16 h-16" />
-                <div>
-                  <p>Expresso Tradicional</p>
+      {cartItems.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <h2>Cafés selecionados</h2>
+          <div className="bg-[#F3F2F2] rounded-md p-10 gap-3 flex flex-col">
+            {cartItems.map((cartItem) => {
+              return (
+                <div className="flex gap-5" key={cartItem.id}>
+                  <img
+                    src={`/src/assets/coffees/${cartItem.photo}`}
+                    className="w-16 h-16"
+                  />
                   <div>
-                    <AddToCartButton>
-                      <button className="flex items-center gap-2 bg-gray-200 p-2 rounded-md">
-                        <Trash />
-                        <span>REMOVER</span>
-                      </button>
-                    </AddToCartButton>
+                    <p>Expresso Tradicional</p>
+                    <div>
+                      <AddToCartButton coffee={cartItem}>
+                        <button className="flex items-center gap-2 bg-gray-200 p-3 rounded-md">
+                          <Trash />
+                          <span>REMOVER</span>
+                        </button>
+                      </AddToCartButton>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
 
-          <div className="flex justify-between">
-            <p>Total de itens</p>
-            <p>R$ 20</p>
-          </div>
+            <div className="flex justify-between">
+              <p>Total de itens</p>
+              <p>R$ 20</p>
+            </div>
 
-          <div className="flex justify-between">
-            <p>Entrega</p>
-            <p>R$ 5</p>
-          </div>
+            <div className="flex justify-between">
+              <p>Entrega</p>
+              <p>R$ 5</p>
+            </div>
 
-          <div className="flex justify-between font-semibold">
-            <p>Total</p>
-            <p>R$ 25</p>
+            <div className="flex justify-between font-semibold">
+              <p>Total</p>
+              <p>R$ 25</p>
+            </div>
+            <button
+              className="rounded-md bg-yellow-400 text-white py-3 px-2 w-full"
+              onClick={handleSubmit(handleSendAddress)}
+            >
+              CONFIRMAR PEDIDO
+            </button>
           </div>
-          <button
-            className="rounded-md bg-yellow-400 text-white py-3 px-2 w-full"
-            onClick={handleSubmit(handleSendAddress)}
-          >
-            CONFIRMAR PEDIDO
-          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -39,11 +39,10 @@ export function Header() {
   return (
     <nav className="flex items-center justify-between py-8">
       <NavLink to="/">
-        {" "}
         <img src={Logo} />
       </NavLink>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 h-12">
         <div className="bg-purple-100 flex py-3 px-2 rounded-md gap-1">
           <MapPin size={24} className="fill-purple-800 " />
           <p className="text-purple-800">
@@ -51,12 +50,17 @@ export function Header() {
           </p>
         </div>
 
-        <div className="bg-yellow-50 py-2 px-2 rounded-md">
-          <NavLink to="/cart">
-            <ShoppingCart size={24} className="fill-yellow-800" />
-          </NavLink>
-          {cartItems.length}
-        </div>
+        <NavLink
+          to="/cart"
+          className="bg-yellow-50 py-2 px-2 rounded-md relative h-full w-12"
+        >
+          <ShoppingCart className="fill-[#C47f17] w-full h-full" />
+          <div className="absolute -top-1 -right-1 bg-[#C47f17] rounded-full w-3 h-3 ">
+            <div className="absolute right-0.5 -top-0.5 text-xs text-white">
+              {cartItems.length}
+            </div>
+          </div>
+        </NavLink>
       </div>
     </nav>
   );
