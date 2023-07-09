@@ -2,6 +2,7 @@ import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
 import { ReactNode, useContext, useState } from "react";
 import { CoffeeCartContext } from "../contexts/CartContext";
 import { coffeeType } from "../mock/coffe";
+import { toast } from "react-toastify";
 
 type AddToCartButtonProps = {
   children?: ReactNode;
@@ -22,6 +23,14 @@ export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
     }
   }
 
+  function handleAddCoffeToCart() {
+    handleAddToCart({ ...coffee, quantity: amount });
+    toast(
+      `${amount} café${amount !== 1 ? "s" : ""} adicionado${
+        amount !== 1 ? "s" : ""
+      } ao carrinho`
+    );
+  }
   return (
     <div className="flex gap-2 max-h-6 p-0.5">
       <div className="flex items-center gap-2 bg-gray-200 p-3 rounded-md">
@@ -39,12 +48,13 @@ export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
         children
       ) : (
         <button
-          onClick={() => handleAddToCart({ ...coffee, quantity: amount })}
+          onClick={handleAddCoffeToCart}
           className="bg-purple-700 rounded-md p-3 items-center flex"
         >
           <ShoppingCartSimple className="fill-white w-5 h-5" />
         </button>
       )}
+
     </div>
   );
 }
