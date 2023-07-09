@@ -15,6 +15,14 @@ export default function cartReducer(state: Array<CartItem>, action: any) {
         draft.push(payload.newCartItem)
       })
     }
+    case ActionTypes.REMOVE_ITEM: {
+      const cartItemIndx = state.findIndex((cartItem) => {
+        return cartItem.id === payload.cartItemIndex
+      })
+      return produce(state, draft => {
+        draft.splice(cartItemIndx, 1)
+      })
+    }
     default: {
       throw Error("Unknown action:" + action.type);
     }

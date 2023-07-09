@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddToCartButton } from "../components/AddToCartButton";
 import { CoffeeCartContext } from "../contexts/CartContext";
+import { toast } from "react-toastify";
 
 type Inputs = {
   cep: string;
@@ -19,12 +20,17 @@ export function ShoppingCart() {
     "credito" | "debito" | "dinheiro" | ""
   >("");
 
-  const { cartItems } = useContext(CoffeeCartContext);
+  const { cartItems, handleRemoveFromCart } = useContext(CoffeeCartContext);
 
   const handleSendAddress: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     reset();
   };
+
+  const handleRemoveItem = (cartItemId: number) => {
+    handleRemoveFromCart(cartItemId)
+    toast("Item removido com sucesso")
+  }
 
   return (
     <div className="flex gap-8">
@@ -110,7 +116,7 @@ export function ShoppingCart() {
                     ? "border-purple-600 bg-purple-100"
                     : ""
                 }`}
-                onClick={()=>setPaymentMethod("credito")}
+                onClick={() => setPaymentMethod("credito")}
               >
                 Cartão de Crédito
               </button>
@@ -120,7 +126,7 @@ export function ShoppingCart() {
                     ? "border-purple-600 bg-purple-100"
                     : ""
                 }`}
-                onClick={()=>setPaymentMethod("debito")}
+                onClick={() => setPaymentMethod("debito")}
               >
                 Cartão de Débito
               </button>
@@ -130,7 +136,7 @@ export function ShoppingCart() {
                     ? "border-purple-600 bg-purple-100"
                     : ""
                 }`}
-                onClick={()=>setPaymentMethod("dinheiro")}
+                onClick={() => setPaymentMethod("dinheiro")}
               >
                 Dinheiro
               </button>
@@ -151,10 +157,13 @@ export function ShoppingCart() {
                     className="w-16 h-16"
                   />
                   <div>
-                    <p>Expresso Tradicional</p>
+                    <p>{cartItem.name}</p>
                     <div>
                       <AddToCartButton coffee={cartItem}>
-                        <button className="flex items-center gap-2 bg-gray-200 p-3 rounded-md">
+                        <button
+                          className="flex items-center gap-2 bg-gray-200 p-3 rounded-md"
+                          onClick={() => handleRemoveItem(cartItem.id)}
+                        >
                           <Trash />
                           <span>REMOVER</span>
                         </button>
