@@ -33,6 +33,11 @@ export default function cartReducer(state: Array<CartItem>, action: any) {
         }
       })
     }
+    case ActionTypes.CLEAR_CART: {
+      return produce(state, (draft) => {
+        draft.splice(0, draft.length);
+      })
+    }
     default: {
       throw Error("Unknown action:" + action.type);
     }
