@@ -1,15 +1,15 @@
 import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { CoffeeCartContext } from "../contexts/CartContext";
-import { coffeeType } from "../mock/coffe";
 import { toast } from "react-toastify";
+import { CartItem } from "../reducer/carts/reducer";
 
 type AddToCartButtonProps = {
   children?: ReactNode;
-  coffee: coffeeType;
+  coffee: CartItem;
 };
 export function AddToCartButton({ children, coffee }: AddToCartButtonProps) {
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(children ? coffee.quantity : 1);
 
   useEffect(() => {
     if (children) {
