@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AddToCartButton } from "../components/AddToCartButton";
 import { CoffeeCartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   cep: string;
@@ -15,22 +16,42 @@ type Inputs = {
   uf: string;
 };
 export function ShoppingCart() {
-  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { register, handleSubmit, reset, getValues } = useForm<Inputs>();
   const [paymentMethod, setPaymentMethod] = useState<
     "credito" | "debito" | "dinheiro" | ""
   >("");
+  const navigate = useNavigate();
+  const formValues = getValues();
 
-  const { cartItems, handleRemoveFromCart } = useContext(CoffeeCartContext);
+  const { cartItems, totalCartPrice, handleRemoveFromCart, handleClearCart } =
+    useContext(CoffeeCartContext);
 
-  const handleSendAddress: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    reset();
+  const handleSendAddress: SubmitHandler<Inputs> = () => {
+    const addressStreet = formValues["rua"];
+    const addressCity = formValues["cidade"];
+    const addressUF = formValues["uf"];
+
+    if (paymentMethod) {
+      navigate("/finished", {
+        state: {
+          paymentMethod: paymentMethod,
+          addressCity,
+          addressStreet,
+          addressUF,
+        },
+      });
+
+      reset();
+      handleClearCart();
+    } else {
+      toast("Selecione um meio de pagamento");
+    }
   };
 
   const handleRemoveItem = (cartItemId: number) => {
-    handleRemoveFromCart(cartItemId)
-    toast("Item removido com sucesso")
-  }
+    handleRemoveFromCart(cartItemId);
+    toast("Item removido com sucesso");
+  };
 
   return (
     <div className="flex gap-8">
@@ -50,13 +71,13 @@ export function ShoppingCart() {
                 <input
                   type="text"
                   placeholder="CEP"
-                  {...register("cep")}
+                  {...register("cep", { required: "Campo Obrigatório" })}
                   className="w-1/3 rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                 />
                 <input
                   type="text"
                   placeholder="Rua"
-                  {...register("rua")}
+                  {...register("rua", { required: "Campo Obrigatório" })}
                   className="rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                 />
 
@@ -64,7 +85,7 @@ export function ShoppingCart() {
                   <input
                     type="text"
                     placeholder="Número"
-                    {...register("numero")}
+                    {...register("numero", { required: "Campo Obrigatório" })}
                     className="rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                   <input
@@ -78,19 +99,19 @@ export function ShoppingCart() {
                   <input
                     type="text"
                     placeholder="Bairro"
-                    {...register("bairro")}
+                    {...register("bairro", { required: "Campo Obrigatório" })}
                     className="w-1/3 rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                   <input
                     type="text"
                     placeholder="Cidade"
-                    {...register("cidade")}
+                    {...register("cidade", { required: "Campo Obrigatório" })}
                     className="w-full rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                   <input
                     type="text"
                     placeholder="UF"
-                    {...register("uf")}
+                    {...register("uf", { required: "Campo Obrigatório" })}
                     className="w-1/6 rounded border border-[#E6E5E5] bg-[#EDEDED] p-3 focus:outline-violet-600"
                   />
                 </div>
@@ -176,7 +197,7 @@ export function ShoppingCart() {
 
             <div className="flex justify-between">
               <p>Total de itens</p>
-              <p>R$ 20</p>
+              <p>{totalCartPrice}</p>
             </div>
 
             <div className="flex justify-between">
@@ -186,7 +207,7 @@ export function ShoppingCart() {
 
             <div className="flex justify-between font-semibold">
               <p>Total</p>
-              <p>R$ 25</p>
+              <p>R$ {totalCartPrice + 5}</p>
             </div>
             <button
               className="rounded-md bg-yellow-400 text-white py-3 px-2 w-full"
