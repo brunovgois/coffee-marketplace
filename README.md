@@ -21,7 +21,11 @@ UI of a marketplace to purchase coffees near you.
 - Toastify
 
 ## Screenshots
-![Screen Shot 2023-07-10 at 18 37 38](https://github.com/brunovgois/coffee-marketplace/assets/17735245/175fd3f0-8e05-4e4f-9ff0-1af1fbdb0a57)
-![Screen Shot 2023-07-10 at 18 38 29](https://github.com/brunovgois/coffee-marketplace/assets/17735245/ff5a4f64-7463-4f3a-b913-1d4a4bed9f26)
-![Screen Shot 2023-07-10 at 18 39 08](https://github.com/brunovgois/coffee-marketplace/assets/17735245/86e7a543-1bb1-4f5d-a055-6add8693999d)
-![Screen Shot 2023-07-10 at 18 39 57](https://github.com/brunovgois/coffee-marketplace/assets/17735245/af24a05f-8688-4e02-a5a9-a7b54b62ac51)
+
+![Screen Shot 2023-07-11 at 11 00 41](https://github.com/brunovgois/coffee-marketplace/assets/17735245/eec6eff1-616b-4e6c-90ba-52196a9b0294)
+
+![Screen Shot 2023-07-11 at 11 01 45](https://github.com/brunovgois/coffee-marketplace/assets/17735245/6eddf70d-e806-4599-b671-2e02b4e6f589)
+
+![Screen Shot 2023-07-11 at 11 03 01](https://github.com/brunovgois/coffee-marketplace/assets/17735245/bb45bb00-a511-492d-b313-1923b0bea9b2)
+
+![Screen Shot 2023-07-11 at 11 06 35](https://github.com/brunovgois/coffee-marketplace/assets/17735245/7ab505cd-e47e-4844-a0c1-c6c4c4af233b)
