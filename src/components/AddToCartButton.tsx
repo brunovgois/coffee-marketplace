@@ -2,7 +2,7 @@ import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { CoffeeCartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
-import { CartItem } from "../reducer/carts/reducer";
+import { CartItem } from "../reducer/cart/reducer";
 
 type AddToCartButtonProps = {
   children?: ReactNode;

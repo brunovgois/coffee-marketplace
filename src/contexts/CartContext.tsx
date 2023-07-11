@@ -5,9 +5,9 @@ import {
   changeItemAmountAction,
   removeItemAction,
   clearCartAction
-} from "../reducer/carts/actions.js";
+} from "../reducer/cart/actions.js";
 
-import cartReducer from "../reducer/carts/reducer";
+import cartReducer from "../reducer/cart/reducer";
 
 interface CartItem extends coffeeType {
   quantity: number;
