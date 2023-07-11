@@ -6,7 +6,7 @@ export interface CartItem extends coffeeType {
   quantity: number
 }
 
-export default function cartReducer(state: Array<CartItem>, action: any) {
+export default function cartReducer(state: Array<CartItem>, action: { type: ActionTypes; payload?: any; }) {
   const { type, payload } = action
 
   switch (type) {
